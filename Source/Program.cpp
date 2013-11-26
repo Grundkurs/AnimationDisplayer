@@ -1,5 +1,6 @@
 #include "Program.h"
 #include <iostream>
+#include <string>
 using std::cout;
 
 Program::Program()
@@ -24,6 +25,7 @@ bool Program::Startup()
 		{
 		correctChoice = true; 
 		std::cin >> input;
+		std::cin.ignore(); 
 		switch (input)
 			{
 			case 'A':
@@ -59,6 +61,9 @@ bool Program::LoadSpriteSheet()
 	//otherwise
 	//if Input correct, load png from given path, 
 	//initialize sfml and return true, so program.run() will get evoked in main.cpp
+	cout << "Type in full path of png SpriteSheet:";
+	std::string path;
+	std::getline(std::cin, path);
 	InitializeSFML();
 	return true; 
 	}
