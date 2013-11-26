@@ -46,7 +46,24 @@ bool ConfigLoader::Initialize(std::string fileName)
 			}
 			
 		}//end of switch-statement
+
+	XMLElement* element = xmlDoc.FirstChildElement("WindowWidth");
+	err = element->QueryIntText(&mWindowWidth);
+	if (err == XMLError::XML_NO_ATTRIBUTE || err == XMLError::XML_WRONG_ATTRIBUTE_TYPE)
+		{
+		std::cout << "error loading from XML\n"; 
+		return false; 
+		}
+	element = xmlDoc.FirstChildElement("WindowHeight");
+	err = element->QueryIntText(&mWindowHeight);
+	if (err == XMLError::XML_NO_ATTRIBUTE || err == XMLError::XML_WRONG_ATTRIBUTE_TYPE)
+	{
+		std::cout << "error loading from XML\n";
+		return false;
+	}
 	return true;
 	}
-int ConfigLoader::GetWindowWidth(){ return mWindowWidth; }
-int ConfigLoader::GetWindowHeight(){ return mWindowHeight; }
+int ConfigLoader::GetWindowWidth()const { return mWindowWidth; }
+int ConfigLoader::GetWindowHeight()const { return mWindowHeight; }
+int	ConfigLoader::GetSpriteWidth() const{ return mSpriteWidth; }
+int	ConfigLoader::GetSpriteHeight() const{ return mSpriteHeight;  }

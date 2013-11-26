@@ -6,10 +6,11 @@ int main()
 {
 
 	Program program; 
-	if (program.Initialize())
-	{
+
+	if (program.Startup())	
+		{
 		return program.Run();
-	}
+		}
 	return 1; 
 
 
