@@ -63,16 +63,18 @@ bool Program::LoadSpriteSheet()
 	//if Input correct, load png from given path, 
 	//initialize sfml and return true, so program.run() will get evoked in main.cpp
 	cout << "Type in name of SpriteSheet residing in the Resources-Folder:";
-	std::string path;
-	std::getline(std::cin, path);
-	std::string fullPath = "..//Resources//";
-	fullPath.append(path);
-	if (_access(fullPath.c_str(), R_OK) == -1 )
+	std::string fileName;
+	std::getline(std::cin, fileName);
+	texturePath = "..//Resources//";
+	texturePath.append(fileName);
+	if (_access(texturePath.c_str(), R_OK) == -1 )
 		{
+		//error
 		cout << "no such File found!\n";
 		return false;
 		}
 	cout << "file found. loading...\n";
+	
 	InitializeSFML();
 	return true; 
 	}
@@ -80,12 +82,15 @@ bool Program::InitializeSFML()
 	{
 	
 	if (!mConfigLoader.Initialize("..//Resources//ConfigFile.xml")) return false;  
+	if (!spriteSheetTexture.loadFromFile(texturePath)) return false;
+	
 	auto WindowHeight = mConfigLoader.GetWindowHeight();
 	auto WindowWidth = mConfigLoader.GetWindowWidth();
 	cout << "Window Width: " << WindowWidth << "\n"; 
 	cout << "Window Height" << WindowHeight << "\n";
 	mRenderWindow.create(sf::VideoMode(WindowWidth, WindowHeight), "AnimatonShower v.01");
 	mAnimation = std::unique_ptr<Animation>(new Animation);
+	mAnimation->GetSprite().setTexture(spriteSheetTexture);
 
 
 	return true;

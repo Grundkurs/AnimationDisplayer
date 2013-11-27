@@ -12,7 +12,7 @@ public:
 	void Draw();
 
 
-const sf::Sprite& GetSprite() const; 
+	sf::Sprite& GetSprite();
 private: 
 
 	sf::Sprite mSprite;

@@ -15,7 +15,7 @@ Animation::~Animation()
 void Animation::Update(){}
 void Animation::Draw(){}
 
-const sf::Sprite& Animation::GetSprite() const
+sf::Sprite& Animation::GetSprite() 
 {
 	return mSprite; 
 }

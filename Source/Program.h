@@ -25,6 +25,7 @@ private:
 
 
 			std::string						texturePath; 
+			sf::Texture						spriteSheetTexture; 
 };
 
 
