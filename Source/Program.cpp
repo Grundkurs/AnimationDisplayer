@@ -65,20 +65,29 @@ bool Program::LoadSpriteSheet()
 	//if Input correct, load png from given path, 
 	//initialize sfml and return true, so program.run() will get evoked in main.cpp
 	cout << "Type in name of SpriteSheet residing in the Resources-Folder:";
-	std::string fileName;
-	std::getline(std::cin, fileName);
-	texturePath = "..//Resources//";
-	texturePath.append(fileName);
-	if (_access(texturePath.c_str(), R_OK) == -1 )
-		{
-		//error
-		cout << "no such File found!\n";
-		cout << "press any Key to close Application\n";
-		cin.get(); 
-		return false;
-		}
-	cout << "file found. loading...\n";
+	bool foundFile = false;
 	
+	do
+	{
+
+		std::string fileName;
+		std::getline(std::cin, fileName);
+
+		if (fileName == "exit")
+		{
+			return false;
+		}
+		texturePath = "..//Resources//";
+		texturePath.append(fileName);
+		if (_access(texturePath.c_str(), R_OK) == -1)
+		{
+			//error
+			cout << "no such File found!\n";
+		}else{ foundFile = true; }
+			
+	} while (!foundFile);
+	
+	cout << "file found. loading...\n";
 	InitializeSFML();
 	return true; 
 	}
