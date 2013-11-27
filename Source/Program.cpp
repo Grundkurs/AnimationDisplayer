@@ -3,6 +3,7 @@
 #include <string>
 #include <io.h>
 using std::cout;
+using std::cin; 
 #define R_OK 4
 Program::Program()
 {
@@ -16,6 +17,7 @@ Program::~Program()
 
 bool Program::Startup()
 	{
+	if (!mConfigLoader.Initialize("..//Resources//ConfigFile.xml")) return false;
 	cout << "a) Load new SpriteSheet\n"; 
 	cout << "b) Display last SpriteSheet\n"; 
 	cout << "x) Quit\n";
@@ -71,6 +73,8 @@ bool Program::LoadSpriteSheet()
 		{
 		//error
 		cout << "no such File found!\n";
+		cout << "press any Key to close Application\n";
+		cin.get(); 
 		return false;
 		}
 	cout << "file found. loading...\n";
@@ -81,7 +85,7 @@ bool Program::LoadSpriteSheet()
 bool Program::InitializeSFML()
 	{
 	
-	if (!mConfigLoader.Initialize("..//Resources//ConfigFile.xml")) return false;  
+	 
 	if (!spriteSheetTexture.loadFromFile(texturePath)) return false;
 	
 	auto WindowHeight = mConfigLoader.GetWindowHeight();
@@ -102,7 +106,9 @@ void Program::ProcessHandle(sf::Event& event)
 int	Program::Run()
 	{
 	sf::Event event; 
-	while (mRenderWindow.isOpen())
+
+	//main program loop
+	while (mRenderWindow.isOpen()) 
 		{
 		while (mRenderWindow.pollEvent(event))
 			{

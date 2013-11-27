@@ -14,6 +14,7 @@ public:
 	~ConfigLoader();
 
 		bool			Initialize(std::string fileName);
+		bool			IsNoError(const tinyxml2::XMLError& err);
 		int				GetWindowHeight() const;
 		int				GetWindowWidth() const; 
 		int				GetSpriteWidth() const; 
