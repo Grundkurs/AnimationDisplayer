@@ -61,9 +61,10 @@ bool Program::LoadSpriteSheet()
 	//otherwise
 	//if Input correct, load png from given path, 
 	//initialize sfml and return true, so program.run() will get evoked in main.cpp
-	cout << "Type in full path of png SpriteSheet:";
+	cout << "Type in name of png SpriteSheet in Resources-Folder:";
 	std::string path;
 	std::getline(std::cin, path);
+	cout << "Opening: " << path; 
 	InitializeSFML();
 	return true; 
 	}
