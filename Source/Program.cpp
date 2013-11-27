@@ -1,6 +1,7 @@
 #include "Program.h"
 #include <iostream>
 #include <string>
+#include <io.h>
 using std::cout;
 
 Program::Program()
@@ -61,9 +62,24 @@ bool Program::LoadSpriteSheet()
 	//otherwise
 	//if Input correct, load png from given path, 
 	//initialize sfml and return true, so program.run() will get evoked in main.cpp
-	cout << "Type in name of png SpriteSheet in Resources-Folder:";
+	cout << "Type in name of SpriteSheet residing in the Resources-Folder:";
 	std::string path;
 	std::getline(std::cin, path);
+	
+	//_access
+/*Look up the access() function. You can replace your function with
+
+if( access( fname, F_OK ) != -1 ) {
+    // file exists
+} else {
+    // file doesn't exist
+}
+
+You can also use R_OK, W_OK, and X_OK in place of F_OK to check for read permission, write permission, and execute permission (respectively) rather than existence, and you can OR any of them together (i.e. check for both read and write permission using R_OK|W_OK)
+
+Update: Note that on Windows, you can't use W_OK to reliably test for write permission, since the access function does not take DACLs into account. access( fname, W_OK ) may return 0 (success) because the file does not have the read-only attribute set, but you still may not have permission to write to the file.
+*/
+
 	cout << "Opening: " << path; 
 	InitializeSFML();
 	return true; 
