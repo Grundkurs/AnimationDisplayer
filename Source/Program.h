@@ -16,10 +16,15 @@ public:
 			int								Run(); 
 			void							ProcessHandle(sf::Event& event);
 
-			//public members
+private:
+
 			std::unique_ptr<Animation>		mAnimation;
 			sf::RenderWindow				mRenderWindow;
 			ConfigLoader					mConfigLoader; 
+
+
+
+			std::string						texturePath; 
 };
 
 
