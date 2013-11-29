@@ -18,7 +18,8 @@ public:
 			void							ProcessHandle(sf::Event& event);
 
 private:
-
+			int								WindowWidth;
+			int								WindowHeight; 
 			std::unique_ptr<Animation>		mAnimation;
 			sf::RenderWindow				mRenderWindow;
 			ConfigLoader					mConfigLoader; 

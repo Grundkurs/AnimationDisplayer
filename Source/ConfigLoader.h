@@ -16,7 +16,7 @@ public:
 
 		bool			Initialize(std::string fileName);
 		bool			IsNoError(const tinyxml2::XMLError& err);
-		bool			WriteToXML(std::string fileName);
+		bool			WriteToXML(std::string fileName, int width, int height);
 		int				GetWindowHeight() const;
 		int				GetWindowWidth() const; 
 		int				GetSpriteWidth() const; 

@@ -82,10 +82,24 @@ int ConfigLoader::GetWindowHeight()const { return mWindowHeight; }
 int	ConfigLoader::GetSpriteWidth() const{ return mSpriteWidth; }
 int	ConfigLoader::GetSpriteHeight() const{ return mSpriteHeight;  }
 
-bool ConfigLoader::WriteToXML(std::string fileName)
+bool ConfigLoader::WriteToXML(std::string fileName, int width, int height)
 {	
-	XMLPrinter* printer = nullptr;
-	return false;
+	XMLDocument doc;
+	std::string xmlText("<?xml version=\"1.0\"?>\n");
+	xmlText += "<TexturePath>";
+	xmlText.append(fileName);
+	xmlText += "</TexturePath>";
+	xmlText += "<WindowWidth>";
+	xmlText.append(std::to_string(width));
+	xmlText += "</WindowWidth>";
+	xmlText += "<WindowHeight>";
+	xmlText.append(std::to_string(height));
+	xmlText += "</WindowHeight>";
+	doc.Parse(xmlText.c_str());
+
+	doc.SaveFile("..//Resources//ConfigFile.xml");
+	return true;
+
 }
 
-std::string		ConfigLoader::GetTexturePath() const{ return mTexturePathString; }
+std::string	ConfigLoader::GetTexturePath() const{ return mTexturePathString; }

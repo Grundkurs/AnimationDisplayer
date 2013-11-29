@@ -17,8 +17,6 @@ Program::~Program()
 
 bool Program::Startup()
 	{
-	//XML-Interface has to be initialized first so stored spritesheet-path can be loaded
-	if (!mConfigLoader.Initialize("..//Resources//ConfigFile.xml")) return false;
 	cout << "a) Load new SpriteSheet\n"; 
 	cout << "b) Display last SpriteSheet\n"; 
 	cout << "x) Quit\n";
@@ -60,6 +58,11 @@ bool Program::Startup()
 	}
 bool Program::LoadRecentSpriteSheet()
 	{
+	if (!mConfigLoader.Initialize("..//Resources//ConfigFile.xml")) 
+		{ 
+		cin.get(); //hold application just to show error-message  
+		return false; 
+		}
 	texturePath += "..//Resources//";
 	texturePath.append(mConfigLoader.GetTexturePath());
 	InitializeSFML();
@@ -91,7 +94,7 @@ bool Program::LoadNewSpriteSheet()
 	} while (!foundFile);
 	
 	cout << "file found. loading...\n";
-	//TODO: Store path-name in XML-File so it can be loaded directly at next application-start
+	
 	InitializeSFML();
 	return true; 
 	}
@@ -101,13 +104,17 @@ bool Program::InitializeSFML()
 	 
 	if (!spriteSheetTexture.loadFromFile(texturePath)) return false;
 	
-	auto WindowHeight = mConfigLoader.GetWindowHeight();
-	auto WindowWidth = mConfigLoader.GetWindowWidth();
+	mAnimation = std::unique_ptr<Animation>(new Animation);
+	mAnimation->GetSprite().setTexture(spriteSheetTexture);
+	mAnimation->SetRectangleShapePosition();
+	sf::Rect<float> imageRect = mAnimation->GetSprite().getGlobalBounds();
+	imageRect.width += mAnimation->GetRectShape().getSize().x;
+	WindowWidth = (int)imageRect.width;
+	WindowHeight = (int)imageRect.height; 
 	cout << "Window Width: " << WindowWidth << "\n"; 
 	cout << "Window Height" << WindowHeight << "\n";
 	mRenderWindow.create(sf::VideoMode(WindowWidth, WindowHeight), "AnimatonShower v.01");
-	mAnimation = std::unique_ptr<Animation>(new Animation);
-	mAnimation->GetSprite().setTexture(spriteSheetTexture);
+
 
 
 	return true;
@@ -133,7 +140,8 @@ int	Program::Run()
 		mRenderWindow.draw(mAnimation->GetSprite());
 		mRenderWindow.draw(mAnimation->GetRectShape());
 		mRenderWindow.display();
-		}
-	//TODO: Save here texturePath of current Texture to XML
+		} // end of main loop
+
+	mConfigLoader.WriteToXML(texturePath, WindowWidth, WindowHeight);
 	return 0; 
 	}

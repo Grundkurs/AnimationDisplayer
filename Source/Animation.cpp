@@ -3,9 +3,8 @@
 
 Animation::Animation()
 {
-	mMenuRect.setSize(sf::Vector2f(40.f, 400.f));
+	mMenuRect.setSize(sf::Vector2f(50.f, 400.f));
 	mMenuRect.setFillColor(sf::Color::Yellow);
-	mMenuRect.setPosition(300.f, 0.f);
 }
 
 
@@ -22,4 +21,9 @@ sf::RectangleShape& Animation::GetRectShape(){ return mMenuRect;  }
 sf::Sprite& Animation::GetSprite() 
 {
 	return mSprite; 
+}
+
+void Animation::SetRectangleShapePosition()
+{
+	mMenuRect.setPosition(sf::Vector2f(mSprite.getGlobalBounds().width, 0.f));
 }

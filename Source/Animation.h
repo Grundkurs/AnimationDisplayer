@@ -10,7 +10,7 @@ public:
 
 	void Update();
 	void Draw();
-
+	void SetRectangleShapePosition();
 	sf::RectangleShape& GetRectShape();
 	sf::Sprite& GetSprite();
 private: 
