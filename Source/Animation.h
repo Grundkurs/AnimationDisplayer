@@ -8,14 +8,19 @@ public:
 	~Animation();
 
 
-	void Update();
-	void Draw();
-	void SetRectangleShapePosition();
-	sf::RectangleShape& GetRectShape();
-	sf::Sprite& GetSprite();
+	void					Update();
+	void					Draw();
+	void					SetRectangleShapePosition();
+	void					SetSpriteRectangle(int spriteWidth, int spriteHeight);
+	void					SetSpritePosition(sf::Vector2f pos); 
+	sf::RectangleShape&		GetRectShape();
+	sf::Sprite&				GetSprite();
+	
 private: 
-	sf::RectangleShape mMenuRect; 
-	sf::Sprite mSprite;
+	sf::RectangleShape		mMenuRect; 
+	sf::Sprite				mSprite;
+	float					mframeRate;
+	float					mframeCounter; 
  
 };
 

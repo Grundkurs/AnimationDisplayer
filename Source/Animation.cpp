@@ -27,3 +27,12 @@ void Animation::SetRectangleShapePosition()
 {
 	mMenuRect.setPosition(sf::Vector2f(mSprite.getGlobalBounds().width, 0.f));
 }
+
+void Animation::SetSpriteRectangle(int spriteWidth, int spriteHeight)
+{
+	mSprite.setTextureRect(sf::Rect<int>(0,0,spriteWidth, spriteHeight));
+}
+void Animation::SetSpritePosition(sf::Vector2f pos)
+{
+	mSprite.setPosition(pos); 
+}

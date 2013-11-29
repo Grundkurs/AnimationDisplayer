@@ -87,13 +87,13 @@ bool ConfigLoader::WriteToXML(std::string fileName, int width, int height)
 	XMLDocument doc;
 	std::string xmlText("<?xml version=\"1.0\"?>\n");
 	xmlText += "<TexturePath>";
-	xmlText.append(fileName);
+	xmlText += fileName;
 	xmlText += "</TexturePath>";
 	xmlText += "<WindowWidth>";
-	xmlText.append(std::to_string(width));
+	xmlText += std::to_string(width);
 	xmlText += "</WindowWidth>";
 	xmlText += "<WindowHeight>";
-	xmlText.append(std::to_string(height));
+	xmlText += std::to_string(height);
 	xmlText += "</WindowHeight>";
 	doc.Parse(xmlText.c_str());
 

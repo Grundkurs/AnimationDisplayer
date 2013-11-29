@@ -20,6 +20,10 @@ public:
 private:
 			int								WindowWidth;
 			int								WindowHeight; 
+			int								SpriteWidth; 
+			int								SpriteHeight; 
+			short							spritesInRow;
+			short							spritesInColumn; 
 			std::unique_ptr<Animation>		mAnimation;
 			sf::RenderWindow				mRenderWindow;
 			ConfigLoader					mConfigLoader; 
