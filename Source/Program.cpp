@@ -1,7 +1,8 @@
 #include "Program.h"
 #include <iostream>
 #include <string>
-#include <io.h>
+
+#include <unistd.h>
 using std::cout;
 using std::cin; 
 #define R_OK 4
@@ -137,7 +138,7 @@ bool Program::InitializeSFML()
 	WindowHeight = (int)imageRect.height; 
 	cout << "Window Width: " << WindowWidth << "\n"; 
 	cout << "Window Height" << WindowHeight << "\n";
-	mRenderWindow.create(sf::VideoMode(WindowWidth, WindowHeight), "AnimatonShower v.01");
+    mRenderWindow.create(sf::VideoMode(WindowWidth, WindowHeight), "AnimatonDisplayer v.01");
 
 
 
