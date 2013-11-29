@@ -26,6 +26,8 @@ bool ConfigLoader::Initialize(std::string fileName)
 	element = xmlDoc.FirstChildElement("WindowHeight");
 	err = element->QueryIntText(&mWindowHeight);
 	if (!IsNoError(err)) return false;
+	element = xmlDoc.FirstChildElement("TexturePath");
+	mTexturePathString = element->GetText();
 	
 	return true;
 	}

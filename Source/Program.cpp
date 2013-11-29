@@ -54,21 +54,17 @@ bool Program::Startup()
 				correctChoice = false;
 				break; 
 				}
-		}
-	} while (!correctChoice);
+			}
+		} while (!correctChoice);
 
 	}
 bool Program::LoadRecentSpriteSheet()
-{
-	
-	if (mConfigLoader.GetTexturePath() != "")
 	{
-		texturePath = mConfigLoader.GetTexturePath();
-	}
+	texturePath += "..//Resources//";
+	texturePath.append(mConfigLoader.GetTexturePath());
 	InitializeSFML();
-	cin.get(); 
 	return true; 
-}
+	}
 bool Program::LoadNewSpriteSheet()
 	{
 
@@ -138,5 +134,6 @@ int	Program::Run()
 		mRenderWindow.draw(mAnimation->GetRectShape());
 		mRenderWindow.display();
 		}
+	//TODO: Save here texturePath of current Texture to XML
 	return 0; 
 	}
