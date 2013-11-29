@@ -65,6 +65,8 @@ bool Program::LoadRecentSpriteSheet()
 		}
 	texturePath += "..//Resources//";
 	texturePath.append(mConfigLoader.GetTexturePath());
+	spritesInRow = mConfigLoader.GetSpritesInRow(); 
+	spritesInColumn = mConfigLoader.GetSpritesInColumn();
 	InitializeSFML();
 	return true; 
 	}
@@ -164,6 +166,6 @@ int	Program::Run()
 		mRenderWindow.display();
 		} // end of main loop
 
-	mConfigLoader.WriteToXML(texturePath, WindowWidth, WindowHeight);
+	mConfigLoader.WriteToXML(texturePath, WindowWidth, WindowHeight, spritesInRow, spritesInColumn);
 	return 0; 
 	}

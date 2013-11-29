@@ -26,6 +26,14 @@ bool ConfigLoader::Initialize(std::string fileName)
 	element = xmlDoc.FirstChildElement("WindowHeight");
 	err = element->QueryIntText(&mWindowHeight);
 	if (!IsNoError(err)) return false;
+
+	element = xmlDoc.FirstChildElement("SpritesInRow");
+	err = element->QueryIntText(&mSpritesInRow);
+	if (!IsNoError(err)) return false;
+
+	element = xmlDoc.FirstChildElement("SpritesInColumn");
+	err = element->QueryIntText(&mSpritesInColumn);
+	if (!IsNoError(err)) return false;
 	element = xmlDoc.FirstChildElement("TexturePath");
 	mTexturePathString = element->GetText();
 	
@@ -79,10 +87,10 @@ bool ConfigLoader::IsNoError(const tinyxml2::XMLError& err)
 
 int ConfigLoader::GetWindowWidth()const { return mWindowWidth; }
 int ConfigLoader::GetWindowHeight()const { return mWindowHeight; }
-int	ConfigLoader::GetSpriteWidth() const{ return mSpriteWidth; }
-int	ConfigLoader::GetSpriteHeight() const{ return mSpriteHeight;  }
+int	ConfigLoader::GetSpritesInRow() const{ return mSpritesInRow; }
+int	ConfigLoader::GetSpritesInColumn() const{ return mSpritesInColumn;  }
 
-bool ConfigLoader::WriteToXML(std::string fileName, int width, int height)
+bool ConfigLoader::WriteToXML(std::string fileName, int width, int height, int spritesInRow, int spritesInColumn)
 {	
 	XMLDocument doc;
 	std::string xmlText("<?xml version=\"1.0\"?>\n");
@@ -95,6 +103,12 @@ bool ConfigLoader::WriteToXML(std::string fileName, int width, int height)
 	xmlText += "<WindowHeight>";
 	xmlText += std::to_string(height);
 	xmlText += "</WindowHeight>";
+	xmlText += "<SpritesInRow>";
+	xmlText += std::to_string(spritesInRow);
+	xmlText += "</SpritesInRow>";
+	xmlText += "<SpritesInColumn>";
+	xmlText += std::to_string(spritesInColumn);
+	xmlText += "</SpritesInColumn>";
 	doc.Parse(xmlText.c_str());
 
 	doc.SaveFile("..//Resources//ConfigFile.xml");

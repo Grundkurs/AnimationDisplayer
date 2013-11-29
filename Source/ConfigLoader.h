@@ -7,8 +7,8 @@ class ConfigLoader
 private:
 		int				mWindowWidth; 
 		int				mWindowHeight; 
-		int				mSpriteWidth;
-		int				mSpriteHeight; 
+		int				mSpritesInRow; 
+		int				mSpritesInColumn; 
 		std::string		mTexturePathString; 
 public:
 	ConfigLoader();
@@ -16,11 +16,11 @@ public:
 
 		bool			Initialize(std::string fileName);
 		bool			IsNoError(const tinyxml2::XMLError& err);
-		bool			WriteToXML(std::string fileName, int width, int height);
+		bool			WriteToXML(std::string fileName, int width, int height, int spritesInRow, int spriteInColumn);
 		int				GetWindowHeight() const;
 		int				GetWindowWidth() const; 
-		int				GetSpriteWidth() const; 
-		int				GetSpriteHeight() const; 
+		int				GetSpritesInRow() const; 
+		int				GetSpritesInColumn() const; 
 		std::string		GetTexturePath() const; 
 };
 
