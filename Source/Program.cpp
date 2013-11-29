@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+
 #include <unistd.h>
 using std::cout;
 using std::cin; 
@@ -86,6 +87,11 @@ bool Program::LoadNewSpriteSheet()
 			{
 			return false;
 			}
+        if(fileName.empty())
+            {
+            cout << "error. no input\n";
+            continue;
+            }
 		texturePath = "..//Resources//";
 		texturePath.append(fileName);
 		if (_access(texturePath.c_str(), R_OK) == -1)
@@ -150,6 +156,8 @@ void Program::ProcessHandle(sf::Event& event)
 }
 int	Program::Run()
 	{
+    //save all files before shooting main Loop
+    mConfigLoader.WriteToXML(texturePath, WindowWidth, WindowHeight, spritesInRow, spritesInColumn);
 	sf::Event event; 
 
 	//main program loop
@@ -167,6 +175,5 @@ int	Program::Run()
 		mRenderWindow.display();
 		} // end of main loop
 
-	mConfigLoader.WriteToXML(texturePath, WindowWidth, WindowHeight, spritesInRow, spritesInColumn);
 	return 0; 
 	}
