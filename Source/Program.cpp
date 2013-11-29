@@ -17,6 +17,7 @@ Program::~Program()
 
 bool Program::Startup()
 	{
+	//XML-Interface has to be initialized first so stored spritesheet-path can be loaded
 	if (!mConfigLoader.Initialize("..//Resources//ConfigFile.xml")) return false;
 	cout << "a) Load new SpriteSheet\n"; 
 	cout << "b) Display last SpriteSheet\n"; 
@@ -34,13 +35,13 @@ bool Program::Startup()
 			case 'A':
 			case 'a':
 				{
-				return LoadSpriteSheet();
+				return LoadNewSpriteSheet();
 				}
 			case 'B':
 			case 'b':
 				{
-				InitializeSFML();
-				return true;
+				return LoadRecentSpriteSheet();
+				
 				}
 			case 'X':
 			case 'x':
@@ -57,37 +58,40 @@ bool Program::Startup()
 	} while (!correctChoice);
 
 	}
-bool Program::LoadSpriteSheet()
-	{
-	//if file not found or other problem
-	//return false
-	//otherwise
-	//if Input correct, load png from given path, 
-	//initialize sfml and return true, so program.run() will get evoked in main.cpp
-	cout << "Type in name of SpriteSheet residing in the Resources-Folder:";
-	bool foundFile = false;
+bool Program::LoadRecentSpriteSheet()
+{
 	
-	do
+	texturePath = mConfigLoader.GetTexturePath(); 
+	InitializeSFML();
+	return true; 
+}
+bool Program::LoadNewSpriteSheet()
 	{
 
+	cout << "Type in name of SpriteSheet residing in the Resources-Folder:";
+	bool foundFile = false;
+
+	do
+		{
 		std::string fileName;
 		std::getline(std::cin, fileName);
 
 		if (fileName == "exit")
-		{
+			{
 			return false;
-		}
+			}
 		texturePath = "..//Resources//";
 		texturePath.append(fileName);
 		if (_access(texturePath.c_str(), R_OK) == -1)
-		{
+			{
 			//error
 			cout << "no such File found!\n";
-		}else{ foundFile = true; }
+			}else{ foundFile = true; }
 			
 	} while (!foundFile);
 	
 	cout << "file found. loading...\n";
+	//TODO: Store path-name in XML-File so it can be loaded directly at next application-start
 	InitializeSFML();
 	return true; 
 	}
@@ -127,6 +131,7 @@ int	Program::Run()
 		mAnimation->Update();
 		mRenderWindow.clear(sf::Color::Black);
 		mRenderWindow.draw(mAnimation->GetSprite());
+		mRenderWindow.draw(mAnimation->GetRectShape());
 		mRenderWindow.display();
 		}
 	return 0; 

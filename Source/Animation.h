@@ -11,10 +11,10 @@ public:
 	void Update();
 	void Draw();
 
-
+	sf::RectangleShape& GetRectShape();
 	sf::Sprite& GetSprite();
 private: 
-
+	sf::RectangleShape mMenuRect; 
 	sf::Sprite mSprite;
  
 };

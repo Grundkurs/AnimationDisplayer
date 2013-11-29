@@ -80,3 +80,10 @@ int ConfigLoader::GetWindowHeight()const { return mWindowHeight; }
 int	ConfigLoader::GetSpriteWidth() const{ return mSpriteWidth; }
 int	ConfigLoader::GetSpriteHeight() const{ return mSpriteHeight;  }
 
+bool ConfigLoader::WriteToXML(std::string fileName)
+{	
+	XMLPrinter* printer = nullptr;
+	return false;
+}
+
+std::string		ConfigLoader::GetTexturePath() const{ return mTexturePathString; }

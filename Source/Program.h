@@ -11,7 +11,8 @@ public:
 	~Program();
 
 			bool							Startup();
-			bool							LoadSpriteSheet();
+			bool							LoadNewSpriteSheet();
+			bool							LoadRecentSpriteSheet(); 
 			bool							InitializeSFML();
 			int								Run(); 
 			void							ProcessHandle(sf::Event& event);
