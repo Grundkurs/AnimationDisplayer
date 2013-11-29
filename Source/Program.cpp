@@ -61,8 +61,12 @@ bool Program::Startup()
 bool Program::LoadRecentSpriteSheet()
 {
 	
-	texturePath = mConfigLoader.GetTexturePath(); 
+	if (mConfigLoader.GetTexturePath() != "")
+	{
+		texturePath = mConfigLoader.GetTexturePath();
+	}
 	InitializeSFML();
+	cin.get(); 
 	return true; 
 }
 bool Program::LoadNewSpriteSheet()
