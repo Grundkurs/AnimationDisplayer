@@ -52,30 +52,26 @@ void Animation::Update(const sf::Time& elapsedTime)
 
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) mframeRate -= mframeChangeAmount; //fasten up
-            {
 
-            }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) mframeRate += mframeChangeAmount; //slow down
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             {
             if(mCurrentRow > 0 ) --mCurrentRow;
-            std::cout <<mCurrentRow;
             mpProgram->mInputControl.Reset();
 
             }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             {
             if(mCurrentRow < (mpProgram->GetSpritesInRow() - 1 )) ++mCurrentRow;
-            std::cout <<mCurrentRow;
             mpProgram->mInputControl.Reset();
             }
 
         } //end of if(canPress)
     mSprite.setTextureRect(sf::Rect<int>(mSpriteWidth * mCurrentColumn, //X-position within spriteSheet
                                          mSpriteHeight * mCurrentRow, //Y-Position within spriteSheet
-                                        mSpriteWidth, //width of displayed sprite within spriteSheet
-                                        mSpriteHeight)); //height of displayed sprite within spriteSheet
+                                         mSpriteWidth, //width of displayed sprite within spriteSheet
+                                         mSpriteHeight)); //height of displayed sprite within spriteSheet
 
     }
 void Animation::Draw(){}

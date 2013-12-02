@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<TexturePath>..//Resources//player6464.png</TexturePath>
+
+<WindowWidth>434</WindowWidth>
+
+<WindowHeight>256</WindowHeight>
+
+<SpritesInRow>4</SpritesInRow>
+
+<SpritesInColumn>6</SpritesInColumn>
