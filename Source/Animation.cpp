@@ -6,9 +6,11 @@ Animation::Animation(Program* pProgram)
 :
 mpProgram(pProgram),
 canPress(true),
-mframeChangeAmount(0.005f),
-mframeRate(0.f),
+mframeChangeAmount(0.00005f),
+mframeRate(0.30f),
 mframeCounter(0.f),
+mTotalColumns(pProgram->GetSpritesInColumn()),
+mTotalRows(pProgram->GetSpritesInRow()),
 mCurrentColumn(0),
 mCurrentRow(0)
 
@@ -34,13 +36,18 @@ void Animation::Update(const sf::Time& elapsedTime)
     if(mframeCounter > mframeRate)
         {
         mframeCounter = 0.f;
+        mCurrentColumn++;
+        if(mCurrentColumn >= mTotalColumns)
+            {
+            mCurrentColumn = 0;
+            }
 
         }
 
 
 
     //user input
-    if(canPress)
+    if(mpProgram->mInputControl.CanPress())
         {
 
 
@@ -54,13 +61,14 @@ void Animation::Update(const sf::Time& elapsedTime)
             {
             if(mCurrentRow > 0 ) --mCurrentRow;
             std::cout <<mCurrentRow;
+            mpProgram->mInputControl.Reset();
 
             }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             {
             if(mCurrentRow < (mpProgram->GetSpritesInRow() - 1 )) ++mCurrentRow;
             std::cout <<mCurrentRow;
-
+            mpProgram->mInputControl.Reset();
             }
 
         } //end of if(canPress)

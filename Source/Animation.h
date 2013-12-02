@@ -3,6 +3,7 @@
 #include <SFML\Graphics.hpp>
 
 class Program;
+
 class Animation
 {
 public:

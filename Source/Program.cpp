@@ -9,6 +9,7 @@ using std::cin;
 #define R_OK 4
 Program::Program()
 {
+    elapsedTime.restart();
 }
 
 
@@ -156,6 +157,15 @@ bool Program::InitializeSFML()
 
 void Program::ProcessHandle(sf::Event& event)
 {
+    switch(event.type)
+    {
+    case (sf::Event::KeyPressed):
+        {
+        mInputControl.Reset();
+        }
+    default:{}
+    }
+
 
 }
 int	Program::Run()
@@ -163,15 +173,23 @@ int	Program::Run()
     //save all files before shooting main Loop
     mConfigLoader.WriteToXML(texturePath, WindowWidth, WindowHeight, spritesInRow, spritesInColumn);
 	sf::Event event; 
-
+    sf::Time now = elapsedTime.getElapsedTime();
+    sf::Time last = now;
 	//main program loop
 	while (mRenderWindow.isOpen()) 
 		{
+            now = elapsedTime.getElapsedTime();
+            mframeDelta = now - last;
+            last = now;
+
 		while (mRenderWindow.pollEvent(event))
 			{
 			if (event.type == sf::Event::Closed) mRenderWindow.close();
-			ProcessHandle(event);
 			}
+
+
+
+        mInputControl.Update(mframeDelta);
         mAnimation->Update(mframeDelta);
 		mRenderWindow.clear(sf::Color::Blue);
 		mRenderWindow.draw(mAnimation->GetSprite());
@@ -183,5 +201,5 @@ int	Program::Run()
 	}
 
 
-int                             Program::GetSpritesInColumn() const{return spritesInColumn;}
-int                            Program::GetSpritesInRow() const{ return spritesInRow;}
+int Program::GetSpritesInColumn() const{return spritesInColumn;}
+int Program::GetSpritesInRow() const{ return spritesInRow;}

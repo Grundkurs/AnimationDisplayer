@@ -4,6 +4,23 @@
 #include <memory>
 #include "ConfigLoader.h"
 #include "Animation.h"
+
+class InputControl
+    {
+
+    float mPressRate = 0.2f;
+    float mCounter = 0.f;
+public:
+    void Update(const sf::Time& elapsedTime) { mCounter += elapsedTime.asSeconds();}
+    void Reset() {mCounter = 0.f; }
+    bool CanPress()
+        {
+        return mCounter > mPressRate ? true : false;
+        }
+
+    };
+
+
 class Program
 {
 public:
@@ -18,7 +35,7 @@ public:
 			void							ProcessHandle(sf::Event& event);
             int                             GetSpritesInColumn() const;
             int                             GetSpritesInRow() const;
-
+            InputControl                    mInputControl;
 
 private:
 			int								WindowWidth;
