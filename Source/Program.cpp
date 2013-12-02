@@ -57,6 +57,9 @@ bool Program::Startup()
 			}
 		} while (!correctChoice);
 
+    //in fact redunant, but to avoid compiler-warning
+    return false;
+
 	}
 bool Program::LoadRecentSpriteSheet()
 	{
@@ -153,6 +156,7 @@ bool Program::InitializeSFML()
 
 void Program::ProcessHandle(sf::Event& event)
 {
+
 }
 int	Program::Run()
 	{

@@ -8,7 +8,7 @@ public:
 	~Animation();
 
 
-	void					Update();
+    void					Update(const sf::Time& elapsedTime);
 	void					Draw();
 	void					SetRectangleShapePosition();
 	void					SetSpriteRectangle(int spriteWidth, int spriteHeight);
@@ -21,6 +21,12 @@ private:
 	sf::Sprite				mSprite;
 	float					mframeRate;
 	float					mframeCounter; 
+    int                     mTotalColumns;
+    int                     mTotalRows;
+    int                     mSpriteWidth;
+    int                     mSpriteHeight;
+    int                     mCurrentColumn;
+    int                     mCurrentRow;
  
 };
 

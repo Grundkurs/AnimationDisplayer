@@ -28,11 +28,12 @@ private:
 			sf::RenderWindow				mRenderWindow;
 			ConfigLoader					mConfigLoader; 
 
-
-
 			std::string						texturePath; 
 			sf::Texture						spriteSheetTexture; 
+
+            sf::Time                        mframeDelta;
+            sf::Clock                       elapsedTime;
 };
 
 
-#endif PROGRAM_H
+#endif //PROGRAM_H

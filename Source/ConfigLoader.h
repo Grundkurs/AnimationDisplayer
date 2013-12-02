@@ -24,4 +24,4 @@ public:
 		std::string		GetTexturePath() const; 
 };
 
-#endif CONFIG_LOADER_H
+#endif //CONFIG_LOADER_H
