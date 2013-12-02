@@ -16,6 +16,9 @@ public:
 			bool							InitializeSFML();
 			int								Run(); 
 			void							ProcessHandle(sf::Event& event);
+            int                             GetSpritesInColumn() const;
+            int                             GetSpritesInRow() const;
+
 
 private:
 			int								WindowWidth;

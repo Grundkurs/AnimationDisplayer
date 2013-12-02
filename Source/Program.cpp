@@ -3,7 +3,7 @@
 #include <string>
 
 
-#include <unistd.h>
+#include <io.h>
 using std::cout;
 using std::cin; 
 #define R_OK 4
@@ -105,19 +105,19 @@ bool Program::LoadNewSpriteSheet()
 			
 	} while (!foundFile);
 	
-		cout << "file found. Enter Number of Sprites in Row: "; 
-		cin >> spritesInRow; 
+        cout << "file found. Enter Number of Sprites in Column: ";
+        cin >> spritesInColumn;
 		cin.ignore(); 
-		if (spritesInRow <= 0) 
+        if (spritesInColumn <= 0)
 			{
 			cout << "wrong input, terminating";
 			return false; 
 			}
 
-		cout << "\nEnter Number of Columns: ";
-		cin >> spritesInColumn; 
+        cout << "\nEnter Number of Rows: ";
+        cin >> spritesInRow;
 		cin.ignore();
-		if (spritesInColumn <= 0)
+        if (spritesInRow <= 0)
 		{
 			cout << "wrong input, terminating";
 			return false;
@@ -131,13 +131,13 @@ bool Program::InitializeSFML()
 	 
 	if (!spriteSheetTexture.loadFromFile(texturePath)) return false;
 	
-	mAnimation = std::unique_ptr<Animation>(new Animation);
+    mAnimation = std::unique_ptr<Animation>(new Animation(this));
 	mAnimation->GetSprite().setTexture(spriteSheetTexture);
 	mAnimation->SetRectangleShapePosition();
 
 	sf::Rect<float> imageRect = mAnimation->GetSprite().getGlobalBounds();
-	SpriteWidth = (int)imageRect.width / spritesInRow; 
-	SpriteHeight = (int)imageRect.height / spritesInColumn; 
+    SpriteWidth = (int)imageRect.width / spritesInColumn;
+    SpriteHeight = (int)imageRect.height / spritesInRow;
 	mAnimation->SetSpriteRectangle(SpriteWidth, SpriteHeight);
 	mAnimation->SetSpritePosition(sf::Vector2f( ( (imageRect.width / 2) - (SpriteWidth/2)),
 											    ( (imageRect.height / 2) - (SpriteHeight / 2) ) ) );
@@ -172,7 +172,7 @@ int	Program::Run()
 			if (event.type == sf::Event::Closed) mRenderWindow.close();
 			ProcessHandle(event);
 			}
-		mAnimation->Update();
+        mAnimation->Update(mframeDelta);
 		mRenderWindow.clear(sf::Color::Blue);
 		mRenderWindow.draw(mAnimation->GetSprite());
 		mRenderWindow.draw(mAnimation->GetRectShape());
@@ -181,3 +181,7 @@ int	Program::Run()
 
 	return 0; 
 	}
+
+
+int                             Program::GetSpritesInColumn() const{return spritesInColumn;}
+int                            Program::GetSpritesInRow() const{ return spritesInRow;}

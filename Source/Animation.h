@@ -1,10 +1,12 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 #include <SFML\Graphics.hpp>
+
+class Program;
 class Animation
 {
 public:
-	Animation();
+    Animation(Program* pProgram);
 	~Animation();
 
 
@@ -17,8 +19,11 @@ public:
 	sf::Sprite&				GetSprite();
 	
 private: 
+    Program*                mpProgram;
+    bool                    canPress;
 	sf::RectangleShape		mMenuRect; 
 	sf::Sprite				mSprite;
+    float                   mframeChangeAmount;
 	float					mframeRate;
 	float					mframeCounter; 
     int                     mTotalColumns;
