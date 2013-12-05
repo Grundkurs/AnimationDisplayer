@@ -4,6 +4,7 @@
 
 class Program;
 
+
 class Animation
 {
 public:
@@ -13,7 +14,7 @@ public:
 
     void					Update(const sf::Time& elapsedTime);
 	void					Draw();
-	void					SetRectangleShapePosition();
+	void					SetMenuRectShape();
 	void					SetSpriteRectangle(int spriteWidth, int spriteHeight);
 	void					SetSpritePosition(sf::Vector2f pos); 
 	sf::RectangleShape&		GetRectShape();

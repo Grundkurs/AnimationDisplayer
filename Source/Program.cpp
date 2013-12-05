@@ -1,8 +1,7 @@
 #include "Program.h"
 #include <iostream>
 #include <string>
-
-
+#include <memory>
 #include <io.h>
 using std::cout;
 using std::cin; 
@@ -119,10 +118,10 @@ bool Program::LoadNewSpriteSheet()
         cin >> spritesInRow;
 		cin.ignore();
         if (spritesInRow <= 0)
-		{
+			{
 			cout << "wrong input, terminating";
 			return false;
-		}
+			}
 	InitializeSFML();
 	return true; 
 	}
@@ -131,10 +130,15 @@ bool Program::InitializeSFML()
 	
 	 
 	if (!spriteSheetTexture.loadFromFile(texturePath)) return false;
+	if (!font.loadFromFile("..//Resources//times.ttf")) 
+		{
+		cout << "no font loaded"; 
+		return false; 
+		}
 	
     mAnimation = std::unique_ptr<Animation>(new Animation(this));
 	mAnimation->GetSprite().setTexture(spriteSheetTexture);
-	mAnimation->SetRectangleShapePosition();
+	mAnimation->SetMenuRectShape();
 
 	sf::Rect<float> imageRect = mAnimation->GetSprite().getGlobalBounds();
     SpriteWidth = (int)imageRect.width / spritesInColumn;
@@ -148,6 +152,33 @@ bool Program::InitializeSFML()
 	WindowHeight = (int)imageRect.height; 
 	cout << "Window Width: " << WindowWidth << "\n"; 
 	cout << "Window Height" << WindowHeight << "\n";
+
+    //create Text
+	float TextPos = 0.f; 
+	float offSet = imageRect.height / 4; 
+    sf::Text newText;
+    newText.setString(std::string("Arrow Up\n = increase Animation-Speed"));
+    newText.setCharacterSize(15);
+    newText.setColor(sf::Color::Black);
+    newText.setFont(font);
+	newText.setPosition(sf::Vector2f(mAnimation->GetRectShape().getGlobalBounds().left, TextPos));
+    text.push_back(newText);
+
+	TextPos += offSet; 
+	newText.setString(std::string("Arrow Down\n = decrease Animation-Speed"));
+	newText.setPosition(sf::Vector2f(mAnimation->GetRectShape().getGlobalBounds().left, TextPos));
+	text.push_back(newText);
+
+	TextPos += offSet; 
+	newText.setString(std::string("Arrow Left\n = upper Row"));
+	newText.setPosition(sf::Vector2f(mAnimation->GetRectShape().getGlobalBounds().left, TextPos));
+	text.push_back(newText);
+
+	TextPos += offSet;
+	newText.setString(std::string("Arrow Right\n = lower Row"));
+	newText.setPosition(sf::Vector2f(mAnimation->GetRectShape().getGlobalBounds().left, TextPos));
+	text.push_back(newText);
+
     mRenderWindow.create(sf::VideoMode(WindowWidth, WindowHeight), "AnimatonDisplayer v.01");
 
 
@@ -172,9 +203,12 @@ int	Program::Run()
 	{
     //save all files before shooting main Loop
     mConfigLoader.WriteToXML(texturePath, WindowWidth, WindowHeight, spritesInRow, spritesInColumn);
-	sf::Event event; 
+
+    sf::Event event;
+
     sf::Time now = elapsedTime.getElapsedTime();
     sf::Time last = now;
+
 	//main program loop
 	while (mRenderWindow.isOpen()) 
 		{
@@ -194,6 +228,10 @@ int	Program::Run()
 		mRenderWindow.clear(sf::Color::Blue);
 		mRenderWindow.draw(mAnimation->GetSprite());
 		mRenderWindow.draw(mAnimation->GetRectShape());
+        for(auto& i : text)
+            {
+            mRenderWindow.draw(i);
+            }
 		mRenderWindow.display();
 		} // end of main loop
 

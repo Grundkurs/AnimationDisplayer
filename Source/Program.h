@@ -4,7 +4,7 @@
 #include <memory>
 #include "ConfigLoader.h"
 #include "Animation.h"
-
+#include <vector>
 class InputControl
     {
 
@@ -50,6 +50,8 @@ private:
 
 			std::string						texturePath; 
 			sf::Texture						spriteSheetTexture; 
+            sf::Font                        font;
+            std::vector<sf::Text>           text;
 
             sf::Time                        mframeDelta;
             sf::Clock                       elapsedTime;

@@ -13,11 +13,7 @@ mTotalColumns(pProgram->GetSpritesInColumn()),
 mTotalRows(pProgram->GetSpritesInRow()),
 mCurrentColumn(0),
 mCurrentRow(0)
-
-{
-	mMenuRect.setSize(sf::Vector2f(50.f, 400.f));
-	mMenuRect.setFillColor(sf::Color::Yellow);
-}
+{}
 
 
 Animation::~Animation()
@@ -68,12 +64,14 @@ void Animation::Update(const sf::Time& elapsedTime)
             }
 
         } //end of if(canPress)
+
     mSprite.setTextureRect(sf::Rect<int>(mSpriteWidth * mCurrentColumn, //X-position within spriteSheet
                                          mSpriteHeight * mCurrentRow, //Y-Position within spriteSheet
                                          mSpriteWidth, //width of displayed sprite within spriteSheet
                                          mSpriteHeight)); //height of displayed sprite within spriteSheet
 
-    }
+    } // end of update
+
 void Animation::Draw(){}
 
 sf::RectangleShape& Animation::GetRectShape(){ return mMenuRect;  }
@@ -82,9 +80,11 @@ sf::Sprite& Animation::GetSprite()
 	return mSprite; 
 }
 
-void Animation::SetRectangleShapePosition()
+void Animation::SetMenuRectShape()
 {
 	mMenuRect.setPosition(sf::Vector2f(mSprite.getGlobalBounds().width, 0.f));
+	mMenuRect.setSize(sf::Vector2f(200.f, mSprite.getGlobalBounds().height));
+	mMenuRect.setFillColor(sf::Color::Yellow);
 }
 
 void Animation::SetSpriteRectangle(int spriteWidth, int spriteHeight)
