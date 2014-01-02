@@ -33,9 +33,11 @@ public:
 			bool							InitializeSFML();
 			int								Run(); 
 			void							ProcessHandle(sf::Event& event);
-            int                             GetSpritesInColumn() const;
-            int                             GetSpritesInRow() const;
+            short							GetSpritesInColumn() const;
+            short                           GetSpritesInRow() const;
+			short							GetSingleAnimationRows(); 
             InputControl                    mInputControl;
+
 
 private:
 			int								WindowWidth;
@@ -44,12 +46,14 @@ private:
 			int								SpriteHeight; 
 			short							spritesInRow;
 			short							spritesInColumn; 
+			short							singleAnimationRows; 
 			std::unique_ptr<Animation>		mAnimation;
 			sf::RenderWindow				mRenderWindow;
 			ConfigLoader					mConfigLoader; 
 
 			std::string						texturePath; 
 			sf::Texture						spriteSheetTexture; 
+
             sf::Font                        font;
             std::vector<sf::Text>           text;
 

@@ -37,6 +37,9 @@ bool ConfigLoader::Initialize(std::string fileName)
 	element = xmlDoc.FirstChildElement("TexturePath");
 	mTexturePathString = element->GetText();
 	
+	element = xmlDoc.FirstChildElement("SingleAnimationRows");
+	err = element->QueryIntText(&mSingleAnimationRows);
+	if (!IsNoError(err)) return false; 
 	return true;
 	}
 
@@ -90,7 +93,7 @@ int ConfigLoader::GetWindowHeight()const { return mWindowHeight; }
 int	ConfigLoader::GetSpritesInRow() const{ return mSpritesInRow; }
 int	ConfigLoader::GetSpritesInColumn() const{ return mSpritesInColumn;  }
 
-bool ConfigLoader::WriteToXML(std::string fileName, int width, int height, int spritesInRow, int spritesInColumn)
+bool ConfigLoader::WriteToXML(std::string fileName, int width, int height, int spritesInRow, int spritesInColumn, int singleAnimationRows)
 {	
 	XMLDocument doc;
 	std::string xmlText("<?xml version=\"1.0\"?>\n");
@@ -109,6 +112,9 @@ bool ConfigLoader::WriteToXML(std::string fileName, int width, int height, int s
 	xmlText += "<SpritesInColumn>";
 	xmlText += std::to_string(spritesInColumn);
 	xmlText += "</SpritesInColumn>";
+	xmlText += "<SingleAnimationRows>"; 
+	xmlText += std::to_string(singleAnimationRows);
+	xmlText += "</SingleAnimationRows>";
 	doc.Parse(xmlText.c_str());
 
 	doc.SaveFile("..//Resources//ConfigFile.xml");
@@ -117,3 +123,5 @@ bool ConfigLoader::WriteToXML(std::string fileName, int width, int height, int s
 }
 
 std::string	ConfigLoader::GetTexturePath() const{ return mTexturePathString; }
+
+int ConfigLoader::GetSingleAnimationRows() { return mSingleAnimationRows; }

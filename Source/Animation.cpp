@@ -9,11 +9,15 @@ canPress(true),
 mframeChangeAmount(0.00005f),
 mframeRate(0.30f),
 mframeCounter(0.f),
+minRow{0},
 mTotalColumns(pProgram->GetSpritesInColumn()),
 mTotalRows(pProgram->GetSpritesInRow()),
-mCurrentColumn(0),
-mCurrentRow(0)
-{}
+mSingleAnimationRows(pProgram->GetSingleAnimationRows()),
+mCurrentRow(minRow)
+{
+	maxRow = minRow + mSingleAnimationRows;
+	mCurrentRow = minRow; 
+}
 
 
 Animation::~Animation()
@@ -26,8 +30,6 @@ void Animation::Update(const sf::Time& elapsedTime)
     {
     //pressing Space holds animation
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) return;
-
-
     mframeCounter += elapsedTime.asSeconds();
     if(mframeCounter > mframeRate)
         {
@@ -36,7 +38,13 @@ void Animation::Update(const sf::Time& elapsedTime)
         if(mCurrentColumn >= mTotalColumns)
             {
             mCurrentColumn = 0;
+			mCurrentRow++;
             }
+		if (mCurrentRow > (maxRow -1))
+			{
+			mCurrentColumn = 0;
+			mCurrentRow = minRow; 
+			}
 
         }
 
@@ -53,14 +61,25 @@ void Animation::Update(const sf::Time& elapsedTime)
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             {
-            if(mCurrentRow > 0 ) --mCurrentRow;
-            mpProgram->mInputControl.Reset();
-
-            }
+            short result =  minRow - mSingleAnimationRows;
+			if (result < 0) return;
+				
+			mCurrentRow = minRow = result; 
+			maxRow = minRow + mSingleAnimationRows;
+			
+			mpProgram->mInputControl.Reset();
+			}
+			
+            
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             {
-            if(mCurrentRow < (mpProgram->GetSpritesInRow() - 1 )) ++mCurrentRow;
-            mpProgram->mInputControl.Reset();
+			short result = minRow + mSingleAnimationRows;            
+			if (result > (mTotalRows - 1)) return;
+
+			mCurrentRow = minRow = result; 
+			maxRow = minRow + mSingleAnimationRows;
+
+			mpProgram->mInputControl.Reset();
             }
 
         } //end of if(canPress)

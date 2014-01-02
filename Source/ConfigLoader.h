@@ -9,6 +9,7 @@ private:
 		int				mWindowHeight; 
 		int				mSpritesInRow; 
 		int				mSpritesInColumn; 
+		int				mSingleAnimationRows; 
 		std::string		mTexturePathString; 
 public:
 	ConfigLoader();
@@ -16,11 +17,17 @@ public:
 
 		bool			Initialize(std::string fileName);
 		bool			IsNoError(const tinyxml2::XMLError& err);
-		bool			WriteToXML(std::string fileName, int width, int height, int spritesInRow, int spriteInColumn);
+		bool			WriteToXML(std::string fileName, 
+												int width, 
+												int height, 
+												int spritesInRow, 
+												int spriteInColumn, 
+												int singleAnimationRows);
 		int				GetWindowHeight() const;
 		int				GetWindowWidth() const; 
 		int				GetSpritesInRow() const; 
-		int				GetSpritesInColumn() const; 
+		int				GetSpritesInColumn() const;
+		int			GetSingleAnimationRows() ;
 		std::string		GetTexturePath() const; 
 };
 

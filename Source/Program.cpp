@@ -72,6 +72,7 @@ bool Program::LoadRecentSpriteSheet()
 	texturePath.append(mConfigLoader.GetTexturePath());
 	spritesInRow = mConfigLoader.GetSpritesInRow(); 
 	spritesInColumn = mConfigLoader.GetSpritesInColumn();
+	singleAnimationRows = mConfigLoader.GetSingleAnimationRows(); 
 	InitializeSFML();
 	return true; 
 	}
@@ -122,6 +123,9 @@ bool Program::LoadNewSpriteSheet()
 			cout << "wrong input, terminating";
 			return false;
 			}
+		cout << "\nEnter Number of Rows needed for single Animation in SpriteSheet: ";
+		cin >> singleAnimationRows;
+		cin.ignore();
 	InitializeSFML();
 	return true; 
 	}
@@ -135,6 +139,8 @@ bool Program::InitializeSFML()
 		cout << "no font loaded"; 
 		return false; 
 		}
+
+
 	
     mAnimation = std::unique_ptr<Animation>(new Animation(this));
 	mAnimation->GetSprite().setTexture(spriteSheetTexture);
@@ -202,7 +208,7 @@ void Program::ProcessHandle(sf::Event& event)
 int	Program::Run()
 	{
     //save all files before shooting main Loop
-    mConfigLoader.WriteToXML(texturePath, WindowWidth, WindowHeight, spritesInRow, spritesInColumn);
+    mConfigLoader.WriteToXML(texturePath, WindowWidth, WindowHeight, spritesInRow, spritesInColumn, singleAnimationRows);
 
     sf::Event event;
 
@@ -239,5 +245,7 @@ int	Program::Run()
 	}
 
 
-int Program::GetSpritesInColumn() const{return spritesInColumn;}
-int Program::GetSpritesInRow() const{ return spritesInRow;}
+short Program::GetSpritesInColumn() const{return spritesInColumn;}
+short Program::GetSpritesInRow() const{ return spritesInRow;}
+
+short Program::GetSingleAnimationRows(){ return singleAnimationRows; }

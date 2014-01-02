@@ -25,15 +25,20 @@ private:
     bool                    canPress;
 	sf::RectangleShape		mMenuRect; 
 	sf::Sprite				mSprite;
+
     float                   mframeChangeAmount;
 	float					mframeRate;
 	float					mframeCounter; 
     int                     mTotalColumns;
-    int                     mTotalRows;
-    int                     mSpriteWidth;
-    int                     mSpriteHeight;
-    int                     mCurrentColumn;
-    int                     mCurrentRow;
+	short					minRow; 
+	short					maxRow; 
+	short					startRow; 
+	short					mSingleAnimationRows;
+    short					mTotalRows;
+    short					mSpriteWidth;
+    short					mSpriteHeight;
+    short					mCurrentColumn;
+    short                     mCurrentRow;
  
 };
 
