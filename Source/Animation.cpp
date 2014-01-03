@@ -7,7 +7,7 @@ Animation::Animation(Program* pProgram)
 mpProgram(pProgram),
 canPress(true),
 mframeChangeAmount(0.00005f),
-mframeRate(0.30f),
+mframeRate(0.15f),
 mframeCounter(0.f),
 minRow{0},
 mTotalColumns(pProgram->GetSpritesInColumn()),
@@ -48,6 +48,10 @@ void Animation::Update(const sf::Time& elapsedTime)
 
         }
 
+	mSprite.setTextureRect(sf::Rect<int>(mSpriteWidth * mCurrentColumn, //X-position within spriteSheet
+										 mSpriteHeight * mCurrentRow, //Y-Position within spriteSheet
+										 mSpriteWidth, //width of displayed sprite within spriteSheet
+										 mSpriteHeight)); //height of displayed sprite within spriteSheet
 
 
     //user input
@@ -84,10 +88,7 @@ void Animation::Update(const sf::Time& elapsedTime)
 
         } //end of if(canPress)
 
-    mSprite.setTextureRect(sf::Rect<int>(mSpriteWidth * mCurrentColumn, //X-position within spriteSheet
-                                         mSpriteHeight * mCurrentRow, //Y-Position within spriteSheet
-                                         mSpriteWidth, //width of displayed sprite within spriteSheet
-                                         mSpriteHeight)); //height of displayed sprite within spriteSheet
+
 
     } // end of update
 
